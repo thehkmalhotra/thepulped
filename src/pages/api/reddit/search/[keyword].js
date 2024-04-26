@@ -5,8 +5,7 @@ export default async function handler(req, res) {
     try {
         const searchRedditResponse = await axios.get(`https://www.reddit.com/search.json?q=${keyword}&type=sr`,{
             headers: {
-                "User-Agent" : "Mozilla/5.0 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
-                "Referer" : "https://thepulped.vercel.app/dashboard/create-audience"
+                "User-Agent" : "",
             }
         }
     );
