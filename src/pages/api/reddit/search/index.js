@@ -5,7 +5,11 @@ export default async function handler(req, res) {
     const { type } = req.body;
     const { sort } = req.body;
     try {
-        const searchRedditResponse = await axios.get(`https://www.reddit.com/search.json?q=${keyword}&type=${type}&sort=${sort}`);
+        const searchRedditResponse = await axios.get(`https://www.reddit.com/search.json?q=${keyword}&type=${type}&sort=${sort}`,{
+            headers: {
+                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
+            }
+        });
         const searchRedditResult = searchRedditResponse.data;
         res.status(200).json(searchRedditResult);
     } catch (error) {

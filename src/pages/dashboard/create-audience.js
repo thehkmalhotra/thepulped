@@ -15,7 +15,7 @@ const CreateAudience = () => {
     async function handleSearch(event) {
         event.preventDefault();
         setLoaderStatus(true);
-        const searchRedditResponse = await axios.get(`https://www.reddit.com/search.json?q=${searchKeyword}&type=sr&sort=relevance`);
+        const searchRedditResponse = await axios.post("/api/reddit/search",{searchKeyword: searchKeyword, type: "sr", sort: "relevance"});
         const searchRedditResult = searchRedditResponse.data;
         SearchData.setSearchData([{ searchKeyword: searchKeyword, subReddits: searchRedditResult.data.children }]);
         setLoaderStatus(false);
@@ -28,7 +28,7 @@ const CreateAudience = () => {
 
     async function handleAddNewKeyWordSearch(event) {
         if (event.key === "Enter") {
-            const searchRedditResponse = await axios.get(`https://www.reddit.com/search.json?q=${event.target.value}&type=sr&sort=relevance`);
+            const searchRedditResponse = await axios.post("/api/reddit/search",{searchKeyword: event.target.value, type: "sr", sort: "relevance"});
             const searchRedditResult = searchRedditResponse.data;
             const newSearchData = [...SearchData.searchData, { searchKeyword: event.target.value, subReddits: searchRedditResult.data.children }];
             SearchData.setSearchData(newSearchData);
@@ -50,7 +50,6 @@ const CreateAudience = () => {
         <>
             <div className="main">
                 <Header></Header>
-                <h1>Hardik</h1>
                 <div className="body">
                     <div className={"create-audience-initial-state" + (loaderStatus ? " disable" : "") + (redditSearchStatus ? " disable" : "")}>
                         <div className="create-audience">
