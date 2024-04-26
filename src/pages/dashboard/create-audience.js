@@ -15,7 +15,7 @@ const CreateAudience = () => {
     async function handleSearch(event) {
         event.preventDefault();
         setLoaderStatus(true);
-        const searchRedditResponse = await axios.get("/api/reddit/search/gaming");
+        const searchRedditResponse = await axios.get(`/api/reddit/search/${searchKeyword}`);
         const searchRedditResult = searchRedditResponse.data;
         SearchData.setSearchData([{ searchKeyword: searchKeyword, subReddits: searchRedditResult.data.children }]);
         setLoaderStatus(false);
@@ -28,7 +28,7 @@ const CreateAudience = () => {
 
     async function handleAddNewKeyWordSearch(event) {
         if (event.key === "Enter") {
-            const searchRedditResponse = await axios.get("/api/reddit/gaming");
+            const searchRedditResponse = await axios.get(`/api/reddit/search/${event.target.value}`);
             const searchRedditResult = searchRedditResponse.data;
             const newSearchData = [...SearchData.searchData, { searchKeyword: event.target.value, subReddits: searchRedditResult.data.children }];
             SearchData.setSearchData(newSearchData);
